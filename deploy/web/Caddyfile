@@ -1,0 +1,55 @@
+{
+	auto_https off
+	admin off
+	http_port 8080
+	servers {
+		trusted_proxies static private_ranges
+		client_ip_headers CF-Connecting-IP X-Forwarded-For
+	}
+}
+
+(security_headers) {
+	header {
+		-Server
+		X-Content-Type-Options nosniff
+		X-Frame-Options DENY
+		Referrer-Policy strict-origin-when-cross-origin
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		Content-Security-Policy "default-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; img-src 'self' data: blob:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' https://challenges.cloudflare.com; connect-src 'self'; frame-src https://challenges.cloudflare.com"
+	}
+}
+
+(api_proxy) {
+	handle /api/* {
+		reverse_proxy api:3000
+	}
+}
+
+http://{$ADMIN_BASE_DOMAIN}:8080, http://admin.{$ADMIN_BASE_DOMAIN}:8080 {
+	redir https://www.{$ADMIN_BASE_DOMAIN}{uri} 308
+}
+
+http://www.{$ADMIN_BASE_DOMAIN}:8080 {
+	import security_headers
+	import api_proxy
+	handle {
+		root * /srv/public
+		try_files {path} /index.html
+		file_server
+	}
+}
+
+http://*.{$ADMIN_BASE_DOMAIN}:8080 {
+	import security_headers
+	import api_proxy
+	handle {
+		root * /srv/workspace
+		try_files {path} /index.html
+		file_server
+	}
+}
+
+http://:8080 {
+	respond /healthz 200
+	respond 404
+}

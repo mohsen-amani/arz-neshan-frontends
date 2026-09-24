@@ -1,0 +1,196 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "public": {
+      "projectType": "application",
+      "root": "projects/public",
+      "sourceRoot": "projects/public/src",
+      "prefix": "an",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/public/src/main.ts",
+            "server": "projects/public/src/main.server.ts",
+            "tsConfig": "projects/public/tsconfig.app.json",
+            "outputPath": "dist/public",
+            "outputMode": "static",
+            "index": "projects/public/src/index.html",
+            "assets": [{ "glob": "**/*", "input": "projects/shared/public" }],
+            "styles": [
+              "node_modules/@fontsource-variable/ibm-plex-sans/index.css",
+              "node_modules/@fontsource-variable/vazirmatn/index.css",
+              "projects/shared/src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "600kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "8kB",
+                  "maximumError": "16kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "defaultConfiguration": "development",
+          "configurations": {
+            "development": { "buildTarget": "public:build:development" },
+            "production": { "buildTarget": "public:build:production" }
+          }
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "buildTarget": "public:build:development",
+            "tsConfig": "projects/public/tsconfig.spec.json",
+            "runner": "vitest"
+          }
+        }
+      }
+    },
+    "workspace": {
+      "projectType": "application",
+      "root": "projects/workspace",
+      "sourceRoot": "projects/workspace/src",
+      "prefix": "an",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/workspace/src/main.ts",
+            "tsConfig": "projects/workspace/tsconfig.app.json",
+            "outputPath": "dist/workspace",
+            "index": "projects/workspace/src/index.html",
+            "assets": [{ "glob": "**/*", "input": "projects/shared/public" }],
+            "styles": [
+              "node_modules/@fontsource-variable/ibm-plex-sans/index.css",
+              "node_modules/@fontsource-variable/vazirmatn/index.css",
+              "projects/shared/src/styles.css",
+              "projects/workspace/src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "650kB",
+                  "maximumError": "1.2MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "8kB",
+                  "maximumError": "16kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "defaultConfiguration": "development",
+          "configurations": {
+            "development": { "buildTarget": "workspace:build:development" },
+            "production": { "buildTarget": "workspace:build:production" }
+          }
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "buildTarget": "workspace:build:development",
+            "tsConfig": "projects/workspace/tsconfig.spec.json",
+            "runner": "vitest"
+          }
+        }
+      }
+    },
+    "platform": {
+      "projectType": "application",
+      "root": "projects/platform",
+      "sourceRoot": "projects/platform/src",
+      "prefix": "an",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "browser": "projects/platform/src/main.ts",
+            "tsConfig": "projects/platform/tsconfig.app.json",
+            "outputPath": "dist/platform",
+            "index": "projects/platform/src/index.html",
+            "assets": [{ "glob": "**/*", "input": "projects/shared/public" }],
+            "styles": [
+              "node_modules/@fontsource-variable/ibm-plex-sans/index.css",
+              "node_modules/@fontsource-variable/vazirmatn/index.css",
+              "projects/shared/src/styles.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "600kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "8kB",
+                  "maximumError": "16kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "defaultConfiguration": "development",
+          "configurations": {
+            "development": { "buildTarget": "platform:build:development" },
+            "production": { "buildTarget": "platform:build:production" }
+          }
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "buildTarget": "platform:build:development",
+            "tsConfig": "projects/platform/tsconfig.spec.json",
+            "runner": "vitest"
+          }
+        }
+      }
+    }
+  }
+}

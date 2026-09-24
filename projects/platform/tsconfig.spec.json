@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "outDir": "../../out-tsc/platform-spec",
+    "types": ["vitest/globals"]
+  },
+  "exclude": [],
+  "include": ["src/**/*.spec.ts", "../../projects/shared/src/**/*.spec.ts"]
+}
