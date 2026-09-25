@@ -12,7 +12,8 @@
     "build:workspace": "ng build workspace",
     "build:platform": "ng build platform",
     "test": "ng test public --watch=false && ng test workspace --watch=false && ng test platform --watch=false",
-    "format": "prettier --write \"projects/**/*.{ts,html,css,json}\" \"*.{json,mjs}\""
+    "format": "prettier --write \"projects/**/*.{ts,html,css,json}\" \"*.{json,mjs}\"",
+    "format:check": "prettier --check \"projects/**/*.{ts,html,css,json}\" \"*.{json,mjs}\""
   },
   "dependencies": {
     "@angular/cdk": "^21.0.1",
